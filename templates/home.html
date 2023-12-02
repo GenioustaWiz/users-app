@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load allauth %}
+{% load socialaccount %}
+{% get_providers as socialaccount_providers %}
+{% providers_media_js %}
+
+
+{% block head %} 
+
+<h1>CWS All Auth Tutorial</h1>
+<title> 
+    Home
+  </title>
+
+  {% endblock head %}
+
+  {% block content %}
+<p>Based on:</p> 
+
+<a href="https://youtu.be/RyB_wdEZhOw"> code with stein </a> 
+<script>
+    console.log({{ get_providers|safe }});
+  </script>
+<hr>
+{% if user.is_authenticated %}
+    {# User is already logged in, no need to display social login options #}
+    <p>Welcome, {{ user.username }}!</p>
+{% else %}
+    {# User is not logged in, display social login options #}
+    <!--{% include "socialaccount/snippets/provider_list.html" with process="login" %}
+    {#{% include "socialaccount/snippets/login_extra.html" %}#}-->
+    <ul>
+        <li>
+            <a title="GitHub" href="/accounts/github/login/?process=login">
+                <i class="fa fa-brands fa-github"></i>
+            </a>
+        </li>
+        <li>
+            <a title="Google" href="/accounts/google/login/?process=login">
+                <i class=" fa fa-brands fa-google"></i>
+            </a>
+        </li>
+        {% comment %} <li>
+            <a title="Facebook" href="/accounts/facebook/login/?process=login">
+                <i class="fa-brands fa-facebook"></i>
+            </a>
+        </li> {% endcomment %}
+        <li>
+            <a title="LinkedIn" href="/accounts/linkedin_oauth2/login/?process=login">
+                <i class="fa-brands fa-linkedin"></i>
+            </a>
+        </li>
+    </ul>  
+{% endif %}
+
+{% endblock content %}

@@ -1,0 +1,30 @@
+Facebook:
+        link: https://developers.facebook.com/apps
+        url: https://localhost
+        your App Domains put (localhost) and put http://localhost:8000 in the section labeled Website with Facebook Login. 
+        Note that you’ll need to add your site’s actual domain to this section once it goes live.
+
+Google:
+        link: https://console.developers.google.com/
+        
+        After you create a project you will have to create a “Client ID” and 
+        fill in some project details for the consent form that will be presented to the client.
+        Under “APIs & auth” go to “Credentials” and create a new Client ID. Probably you will want 
+        a “Web application” Client ID. Provide your domain name or test domain name in “Authorized JavaScript origins: https://localhost”. 
+        Finally fill in http://127.0.0.1:8000/accounts/google/login/callback/ in the “Authorized redirect URI”
+
+        url: https://localhost
+        callback: http://localhost/accounts/google/login/callback/
+
+Twitter:
+        1-link: https://apps.twitter.com/app/new
+        2-Application name: 
+            your Appname Social Auth
+        3-Homepage URL: 
+            https://127.0.0.1:8000/
+        4-Authorization callback URL:
+            https://127.0.0.1:8000/accounts/github/login/callback
+        5-Goto to your app login (http://127.0.0.1:8000/) and authorize app.
+
+Github:
+        LINK: https://github.com/settings/applications/2373697

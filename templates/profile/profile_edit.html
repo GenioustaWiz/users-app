@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<title>Profile Edit</title>
+<link rel="stylesheet" href="{% static 'css/users/profile_home.css' %}" type="text/css">
+<link rel="stylesheet" href="{% static 'css/users/profile.css' %}">
+<link rel="stylesheet" href="{% static 'css/users/login.css' %}" type="text/css">
+
+<style>
+  select{
+    border: 1px solid #c9e6ff;
+  }
+  .phone-no{
+    display: flex;
+    padding-top: 0 !important;
+  }
+  .phone-no select{
+    width: 70px;
+    margin-right: 5px;
+  }
+  select.P-no{
+    width: fit-content;
+  }
+  #id_country{
+    padding: 0.36em;
+  }
+</style>
+{% endblock head %}
+
+{% block content %}
+<section class="s2 profile">
+  <div class=" profile-main  container-xl">
+    
+    {% include 'profile/profile_side_bar.html' %}
+    
+    <!--==========SECTION FOR EDITING USER PROFILE============-->
+    <section id="edit-profile" style="justify-items: center;">
+       
+      <div class="form-info container-xl">
+        <div class="form" style="margin-bottom: 10px;">
+          
+          <form method="post" style="padding-top: 0;">
+            <h3 class="text-center" style="margin-bottom: 0px;
+            color: var(--text-color);
+            font-size: 24px !important;
+            font-weight: 700;">
+              Edit profile information here
+            </h3> 
+            {% csrf_token %}
+            <div class=" user-form signup">
+              <!-- User form -->
+              {{ u_form.as_p }}
+              <div id="phone-no" style="padding-top: 10px;">
+                
+                <label for="id_phone_number">Phone number:</label>
+                
+                <p class="phone-no">
+                {{c_form.phone_number}}
+                </p>
+                <script>
+                  document.addEventListener("DOMContentLoaded", function () {
+                      // Get the select element
+                      var select = document.getElementById("id_phone_number_0");
+          
+                      // Initialize a variable to store the previous selected option text
+                      var previousOptionText = "";
+          
+                      // Initialize a variable to store the index of the option currently displaying in the
+                      // select. before selecting a new option
+                      var currentIndex = -1;
+                      // Function to update the previousOptionText and currentIndex variables
+                      function updateSelection() {
+                          var selectedOption = select.options[select.selectedIndex];
+                          var fullText = selectedOption.textContent;
+                          // Use a regular expression to extract the country code (last part)
+                          var countryCodeMatch = fullText.match(/\+\d+$/);
+                          if (countryCodeMatch) {
+                              var countryCode = countryCodeMatch[0];
+                              // Update the text of the selected option to display only the country code
+                              selectedOption.text = countryCode;
+                              //console.log(selectedOption)
+                              previousOptionText = fullText;
+                              currentIndex = select.selectedIndex;
+                          }
+                      }
+          
+                      // Initial update
+                      updateSelection();
+          
+                      // Add an event listener for the "change" event on the select element
+                      select.addEventListener("change", function () {
+                          // Get the selected option text
+                          var selectedOptionText = select.options[select.selectedIndex].text;
+          
+                          // Do something with the selected option text, e.g., save it to a variable
+                          //console.log("Selected Option Text:", selectedOptionText);
+          
+                          // Do something with the previous option text if needed
+                          //console.log("Previous Option Text:", previousOptionText);
+          
+                          // Do something with the current index if needed
+                          //console.log("Current Index:", currentIndex);
+          
+                          // You can also replace the text of the current select option with the saved text
+                          select.options[currentIndex].text = previousOptionText;
+          
+                          // Update the previousOptionText and currentIndex variables
+                          updateSelection();
+                      });
+                  });
+                </script>
+            </div>
+              <p>
+                <label for="id_country">Country:</label>
+                {{c_form.country}}
+              </p>
+              {{p_form.as_p}}
+              {{p_form.errors}}
+            </div>
+            <div class="profile-form signup">
+              {{desc_form.as_p}}
+            </div>
+            <p class="full" style="padding-top: 6px;">
+              <button type="submit" value="register" style=" padding: 5px; width: 120px; margin-left: 40%; 
+              border-radius: 25px;
+              ">Update</button>
+            </p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </div>
+</section>
+{% endblock content %}

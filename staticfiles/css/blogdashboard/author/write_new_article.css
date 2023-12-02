@@ -1,0 +1,265 @@
+input {
+    height: 26px;
+}
+
+.form-control {
+    padding: 0;
+}
+
+#w-a-heading {
+    margin: 0 0 50px 10px;
+    /*top right bottom left  */
+    padding-top: 10px;
+}
+
+#w-a-body {
+    display: grid;
+    justify-items: center;
+    padding: 0 10px;
+}
+
+.w-a-body {
+    /*FOR THE FORM */
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px !important;
+    width: 100%;
+}
+
+.wa-mb,
+.wa-mb-1fr {
+    /*HELPS SET THE MARGIN BOTTOM */
+    display: grid;
+    border: 2px solid #f3f3f39c;
+    margin-bottom: 15px;
+    padding: 10px;
+}
+.django-ckeditor-widget{
+    display: block !important;
+}
+.django-ckeditor-widget textarea{
+    width: 100%;
+}
+.bootstrap-tagsinput input {
+
+    width: 100%;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--bs-body-color);
+    background-color: var(--bs-body-bg);
+    background-clip: padding-box;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: var(--bs-border-radius);
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+
+
+/* ------ FOR The Category, Subcategory, and Status Dropdown and Select options---- */
+.dropdown.bootstrap-select {
+    display: block;
+    position: relative;
+    border: none;
+}
+
+.bootstrap-select .btn {
+    position: relative;
+    text-align: left;
+    /* z-index: 2; */
+    padding: 0.375rem 0.75rem;
+}
+
+/* Set the height and width of the select option to match the button */
+.bootstrap-select .dropdown-toggle {
+    width: 100%;
+    padding: 0;
+    position: relative;
+    /* background-color: rgb(201, 200, 200); */
+    border: none;
+    box-shadow: none;
+}
+
+select {
+    display: none !important;
+}
+#articleCategory {
+    display: block !important;
+}
+
+/*.selectpicker.show{
+              display: block !important;
+              position: absolute;
+              height: 50px;
+              width: 100%;
+            }*/
+.dropdown-toggle::after {
+    display: none !important;
+}
+
+.dropdown-menu {
+    position: absolute;
+}
+
+.dropup {
+    position: relative;
+}
+
+.dropup .dropdown-menu {
+    top: auto !important;
+    bottom: 100%;
+    left: 0 !important;
+}
+
+.dropdown-menu.show {
+    display: block;
+    position: relative;
+}
+
+.dropdown-menu.hide {
+    display: none !important;
+}
+
+.bs-searchbox input {
+    width: 100%;
+}
+
+.inner {
+    display: block;
+    position: relative;
+}
+
+
+.inner ul {
+    display: block;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    /*position: absolute;
+                top: 100%;*/
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    color: black;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.inner ul li {
+    padding: 5px;
+}
+
+.inner ul li a {
+    display: block;
+    padding: 5px;
+    text-decoration: none;
+}
+
+.inner ul li a:hover {
+    background-color: #f5f5f5;
+}
+
+/* Show select element when options list is hidden */
+.inner:not()+select {
+    display: block;
+}
+
+/* ----End of CAT, SUB, STAT -------- */
+
+/* -------------TAGS--------------------- */
+.bootstrap-tagsinput{
+    display: flex;
+    flex-direction: column;
+}
+#tag-container{
+    display: flex;
+    flex-direction: row;
+    margin-right: 4px;
+}
+.tag{
+    display: flex;
+    margin-right: 2px;
+    background-color: #d3caca;
+    border-radius: 4px;
+    align-items: center;
+}
+
+.tag-delete {
+   
+    display: flex;
+    font-size: 10px !important;
+    /* border-radius: 50px; */
+    color: red;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    margin: 0 2px;
+}
+
+/* --------END IF TAGS -------------- */
+.article--status{
+    display: grid;
+    grid-template-columns: auto 1fr;
+}
+.article--status ol{
+    margin: 0 30px 0 0;
+}
+.article--status ol li{
+    display: flex;
+}
+.article--status ol li h6{
+    margin: 0 5px 0 0;
+    width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+/* -------------submit buttons------ */
+.wa-buttons .form-group{
+    display: flex;
+    justify-content: center;
+}
+.wa-buttons .form-group button{
+margin-right: 20px;
+}
+/* ----------- end -------------- */
+
+@media only screen and (min-width: 768px) {
+
+    /* CSS for medium screens */
+    .write-a-c {
+        margin: 20px 50px 50px 50px;
+        /*top right bottom left*/
+    }
+
+    .wa-mb {
+        width: 100%;
+        /* grid-template-columns: 1fr 1fr; */
+        grid-gap: 20px;
+        /* justify-content: start; */
+    }
+
+    .wa-mb-1fr {
+        width: 100%;
+        grid-template-columns: 1fr;
+        grid-gap: 20px;
+        justify-content: center;
+    }
+
+    .wa-buttons {
+        justify-items: end;
+    }
+    .bootstrap-tagsinput{
+        flex-direction: row;
+    }
+}
+
+/*@media only screen and (min-width: 1200px) {
+        /* CSS for large screens 
+        .wa-mb {
+          grid-template-columns: 1fr 1fr;
+        }
+      }*/

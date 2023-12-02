@@ -1,0 +1,33 @@
+Django==4.2.7
+
+# for production
+whitenoise==6.2.0
+gunicorn==21.2.0
+
+# image processing
+Pillow==9.1.0
+
+# for phone numbers processing
+django-phonenumber-field==6.3.0
+phonenumbers==8.12.54
+Babel==2.13.0
+
+django-cleanup==6.0.0
+django-countries==7.3.2
+django-debug-toolbar==4.0.0
+
+# users
+django-allauth==0.58.2
+# facebook-sdk
+
+# for activating server in https mode:
+# how to activate the server
+# # python manage.py runserver_plus --cert-file cert.pem --key-file key.pem
+# django-extensions 
+# Werkzeug
+# pyOpenSSL
+
+# for security reduce chances of bruteforce
+# activate for production
+django-axes
+
