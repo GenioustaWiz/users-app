@@ -9,4 +9,4 @@ class CustomPasswordSetView(PasswordSetView):
     def get_success_url(self):
         return reverse_lazy("profile")
 
-password_set = login_required(CustomPasswordSetView.as_view())
+password_set = login_required(CustomPasswordSetView.as_view()) 

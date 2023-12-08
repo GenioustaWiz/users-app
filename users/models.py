@@ -145,37 +145,24 @@ class User(AbstractBaseUser, PermissionsMixin):
     @property
     def has_usable_password(self):
         return super().has_usable_password if not self.social_account else False
-
+        
+# this acts asa signal for updating entries on the user  model from data gotten from social login
 @receiver(pre_social_login, dispatch_uid='pre_social_login_signal')
 @receiver(social_account_updated, dispatch_uid='social_account_updated_signal')
 def populate_user_profile(sender, request, sociallogin, **kwargs):
-    # Make sure to save the social account, linking it to the user
-    # try:
-    #     user_model = get_user_model()
-    #     user_data = sociallogin.account.extra_data
-    # except get_user_model().DoesNotExist:
-    #     sociallogin.save(request)
-    #     user_model = get_user_model()
-    #     user_data = sociallogin.account.extra_data
     if sociallogin:
         # Extract the email from the social account data
         social_email = sociallogin.account.extra_data.get('email', None)
-
         if social_email:
             # Check if a user with this email already exists
             existing_user = User.objects.filter(email=social_email).first()
-
+            # User with this email doesn't exists, handle accordingly
             if not existing_user:
-                # User with this email doesn't exists, handle accordingly
                 sociallogin.save(request)
                 
-    # user = sociallogin.user
     user_model = get_user_model()
     user_data = sociallogin.account.extra_data
-    # user = user_model.objects.get(pk=sociallogin.user.id)  # Assuming sociallogin.user.id is the user's primary key
     email = user_data['email']
-    # user = user_model.objects.get(email=email)
-    
     ip_address = '0.0.0.0'
     country = ''
     username = ''
@@ -189,36 +176,27 @@ def populate_user_profile(sender, request, sociallogin, **kwargs):
             ip_address = request.META.get('REMOTE_ADDR')
 
     # Use GeoIP2 to get the country based on the IP address
-    
-    # if ip_address:
-    #     g = GeoIP2()
-    #     try:
-    #         country = g.country(ip_address)['country_code']
-    #     except:
-    #         pass
-    
     # Additional logic based on social account provider
     if sociallogin.account.provider == 'facebook':
-        
         image_url = "http://graph.facebook.com/" + social_account.uid + "/picture?type=large"
         sociallogin.account.user.image.save('profile.jpg', File(urlopen(image_url)))
         sociallogin.account.user.first_name = user_data['first_name']
         sociallogin.account.user.username = user_data.get('username', '')
+
     elif sociallogin.account.provider == 'linkedin':
-        
         image_url = user_data['picture-urls']['picture-url']
         sociallogin.account.user.image.save('profile.jpg', File(urlopen(image_url)))
         sociallogin.account.user.first_name = user_data['first-name']
         sociallogin.account.user.username = user_data.get('username', '')
+
     elif sociallogin.account.provider == 'twitter':
-        
         image_url = user_data['profile_image_url']
         image_url = image_url.rsplit("_", 1)[0] + "." + image_url.rsplit(".", 1)[1]
         sociallogin.account.user.image.save('profile.jpg', File(urlopen(image_url)))
         sociallogin.account.user.first_name = user_data['name'].split()[0]
         sociallogin.account.user.username = user_data.get('username', '')
+
     elif sociallogin.account.provider == 'google':
-        
         image_url = user_data['picture']
         image_content = urlopen(image_url).read()
         image_file = BytesIO(image_content)
@@ -233,8 +211,8 @@ def populate_user_profile(sender, request, sociallogin, **kwargs):
             sociallogin.account.user.first_name = ''
             sociallogin.account.user.last_name = ''
         sociallogin.account.user.username = user_data.get('username', '')
+
     elif sociallogin.account.provider == 'github':
-        
         image_url = user_data['avatar_url']
         image_content = urlopen(image_url).read()
         image_file = BytesIO(image_content)
@@ -250,7 +228,7 @@ def populate_user_profile(sender, request, sociallogin, **kwargs):
             sociallogin.account.user.last_name = ''
         sociallogin.account.user.username = user_data.get('login', '')
     
-    # Save the user object
+    
     # Set the ip_address and country to the user
     sociallogin.account.user.ip_address = ip_address
     # sociallogin.account.user.country = country
@@ -259,7 +237,8 @@ def populate_user_profile(sender, request, sociallogin, **kwargs):
     if not sociallogin.account.user.username:
         email = user_data['email']
         sociallogin.account.user.username = email.split('@')[0]
-        
+    
+    # Save the user object    
     sociallogin.account.user.save()
 
     # Resize the image

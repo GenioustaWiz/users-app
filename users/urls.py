@@ -1,7 +1,8 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
-from .allauth_views import CustomPasswordSetView
-from .views import *
+from .views.allauth_views import CustomPasswordSetView
+from .views.views import *
+# from .views.custom_login_V import CustomLoginView
 from .admin_views.custom_user_assign_view_V import *
 from .admin_views.users_detail_views import *
 from .admin_views.users_list_views import *
@@ -15,7 +16,7 @@ urlpatterns = [
     path('your/profile/', profile, name='profile'),
     path('profile/Edit/', profile_edit, name='profile_edit'),
     path('delete-account/', login_required(DeleteAccountView.as_view()), name='delete_account'),
-    # path('login/', Login, name='signin'),
+    # path('login/', CustomLoginView.as_view(), name='custom_login'),
     # CustomPasswordSetView IS FOR ADDING MORE FUNCTIONALITY TO THE ORIGINAL 
     # DJANGO-ALLAUTH PASSWORDS_SET VIEW
     path('password/set/', CustomPasswordSetView.as_view(), name='account_set_password'),

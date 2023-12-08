@@ -6,9 +6,9 @@ from django.urls import reverse_lazy
 from django.contrib import messages
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required 
-from .models import User
+from users.models import User
 # Import User UpdateForm, ProfileUpdatForm
-from .forms import *
+from users.forms import *
 
 from django.views.generic import TemplateView, View
 from allauth.account.views import LogoutView
