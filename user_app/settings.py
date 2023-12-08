@@ -113,7 +113,6 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
-# SOCIALACCOUNT_ADAPTER = 'users.adapters.CustomSocialAccountAdapter'
     # EMAIL_BACKEND so allauth can proceed to send confirmation emails
     # ONLY for development/testing use console 
 EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
