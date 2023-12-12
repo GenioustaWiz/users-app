@@ -92,7 +92,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         ('F', 'Female'),
         ('O', 'Other'),
     )
-    social_account = models.OneToOneField(SocialAccount, null=True, blank=True, on_delete=models.CASCADE, related_name='custom_user')
+    # social_account = models.OneToOneField(SocialAccount, null=True, blank=True, on_delete=models.CASCADE, related_name='custom_user')
     username = models.CharField(max_length=30, blank=True)
     first_name = models.CharField(max_length=30, blank=True)
     last_name = models.CharField(max_length=30, blank=True)
@@ -142,9 +142,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return f'{self.email} User' #show how we want it to be displayed
 
-    @property
-    def has_usable_password(self):
-        return super().has_usable_password if not self.social_account else False
+    # @property
+    # def has_usable_password(self):
+    #     return super().has_usable_password if not self.social_account else False
         
 # this acts asa signal for updating entries on the user  model from data gotten from social login
 @receiver(pre_social_login, dispatch_uid='pre_social_login_signal')

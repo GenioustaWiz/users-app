@@ -119,10 +119,15 @@
                 <a href="{% url 'profile' %}" class="dropdown-item"><i
                         class="fa fa-user"></i> Profile</a>
                 <!-- <a href="#" class="dropdown-item"><i class="fa fa-calendar-o"></i> Calendar</a> -->
+                {% if user.has_usable_password %}
                 <a href="{% url 'account_change_password' %}" class="dropdown-item">
-                    <i class="fa fa-solid fa-pen-to-square"></i> Change
-                    password
+                    <i class="fa fa-solid fa-pen-to-square"></i>Change password
                 </a>
+                {% else %}
+                <a href="{% url 'account_set_password' %}" class="dropdown-item">
+                    <i class="fa fa-solid fa-pen-to-square"></i>  Set password
+                </a>
+                {% endif %}
                 <li>
                     <hr class="dropdown-divider" style="color: var(--accent-color);">
                 </li>
