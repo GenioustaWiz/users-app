@@ -34,8 +34,8 @@ section{
     padding: 1em;
   }
   .company-info{
-    background: var(--inverted-bg-color);
-    color: var(--inverted-text-color);
+    /* background: var(--inverted-bg-color); */
+    color: var(--text-color);
     box-shadow: 0 0 10px 0 var(--inverted-bg-color);
     padding: 20px 5px 20px 5px;
     margin: 10px;
