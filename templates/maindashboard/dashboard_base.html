@@ -145,11 +145,11 @@
                         Profile<span style="padding-left: 2px;">&darr;</span>
                 </span>
                 <div class="dropdown-content">
-                    <a href="{{ item.get_absolute_url }}">
+                    <a href="{% url 'profile' %}">
                         <i class="bi bi-person-bounding-box"></i>
                             View Profile
                     </a>
-                    <a href="{{ item.get_absolute_url }}">
+                    <a href="{% url 'profile_edit'%}">
                         <i class="bi bi-pencil-square"></i>
                             Update Profile
                     </a>
@@ -250,11 +250,11 @@
                         Profile<span style="padding-left: 2px;">&darr;</span>
                     </span>
                     <div class="dropdown-content">
-                        <a href="{{ item.get_absolute_url }}">
+                        <a href="{% url 'profile' %}">
                             <i class="bi bi-person-bounding-box"></i>
                             View Profile
                         </a>
-                        <a href="{{ item.get_absolute_url }}">
+                        <a href="{% url 'profile_edit'%}">
                             <i class="bi bi-pencil-square"></i>
                             Update Profile
                         </a>

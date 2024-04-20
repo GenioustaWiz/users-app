@@ -24,6 +24,30 @@
             {% endelement %}
         </h1>
         <div class="wrapper animated bounceInLeft "> 
+            <div class="company-info" >
+                <h3>{{side_info.name}}</h3>
+                <ul>
+                  <li>
+                    <i class="bi bi-telephone-fill"></i>
+                    {{side_info.phone_number}}
+                  </li>
+                  <li>
+                    <i class="bi bi-envelope-at-fill"></i>
+                    {{side_info.email}}
+                  </li>
+                  <li>
+                    <i class="bi bi-geo-alt-fill"></i>
+                    {{side_info.address}}
+                  </li>
+                  <li> 
+                    <i class="bi bi-whatsapp"></i>
+                    <div class="form-group button" style="margin-top: 5px;">
+                      <a href="" id='whatsapp-url' target="_blank" style="font-weight: 700;">Contact on Whatsapp</a>
+                    </div>
+                  </li>
+                </ul>
+        
+              </div>
             <div>
                 <div class="form-info">
                     <div class="form">
