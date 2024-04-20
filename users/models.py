@@ -9,7 +9,7 @@ from django.dispatch import receiver
 from django.core.files import File
 from urllib.request import urlopen
 from io import BytesIO
-from django.contrib.gis.geoip2 import GeoIP2
+# from django.contrib.gis.geoip2 import GeoIP2
 
 from PIL import Image 
 from phonenumber_field.modelfields import PhoneNumberField
@@ -24,7 +24,7 @@ class UserManager(BaseUserManager):
         email = self.normalize_email(email)
 
         # Get IP address from the request
-        ip_address = None
+        ip_address = "0.0.0.0"
         if request:
             x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
             if x_forwarded_for:
