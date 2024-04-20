@@ -16,7 +16,7 @@ from django.core.mail import send_mail
 
 from users.models import User
 
-# @csrf_protect
+@csrf_protect
 class CustomLoginView(LoginView):
      # Extract email from the request data
     email = request.POST.get('login')  # Assuming 'login' is the name of the email field in your form
