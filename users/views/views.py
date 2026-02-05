@@ -13,6 +13,7 @@ from users.forms import *
 from django.views.generic import TemplateView, View
 from allauth.account.views import LogoutView
 
+
 # Create your views here.
 def home(request):
     return render(request, 'home.html',)
@@ -103,3 +104,25 @@ class DeleteAccountView(TemplateView):
 
         messages.success(request, 'Your account has been deleted.')
         return redirect("home")  
+
+def signup_view(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login_')
+    else:
+        form = CustomUserCreationForm()
+    return render(request, 'signup.html', {'form': form})
+
+def login_view(request):
+    if request.method == 'POST':
+        form = CustomAuthenticationForm(data=request.POST)
+        if form.is_valid():
+            user = authenticate(u_id=form.cleaned_data['username'], password=form.cleaned_data['password'])
+            if user is not None:
+                login(request, user)
+                return redirect('home')
+    else:
+        form = CustomAuthenticationForm()
+    return render(request, 'login.html', {'form': form})

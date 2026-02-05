@@ -2,9 +2,10 @@
 from django import forms
 from django.forms import ModelForm, TextInput, EmailInput
 from users.models import User
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from phonenumber_field.formfields import PhoneNumberField
 from phonenumber_field.widgets import PhoneNumberPrefixWidget
+
 
 # class loginpage(forms.Form):
 #     username = forms.CharField(max_length=63)
@@ -51,3 +52,16 @@ class ProfileUpdateForm_desc(forms.ModelForm):
     class Meta:
         model = User
         fields =['desc']
+
+
+class CustomUserCreationForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ('u_id', 'email',)
+
+class CustomAuthenticationForm(AuthenticationForm):
+    username = forms.CharField(label='U id', max_length=254, widget=forms.TextInput(attrs={'autofocus': True}))
+
+    class Meta:
+        model = User
+        fields = ('u_id', 'password',)

@@ -15,74 +15,21 @@ from PIL import Image
 from phonenumber_field.modelfields import PhoneNumberField
 from django_countries.fields import CountryField
 
-class UserManager(BaseUserManager):
-
-    def _create_user(self, email, password, is_staff, is_superuser, request=None, **extra_fields):
-        if not email:
-            raise ValueError('Users must have an email address')
-        now = timezone.now()
+class CustomUserManager(BaseUserManager):
+    def create_user(self, UID, email, password=None, **extra_fields):
+        if not UID:
+            raise ValueError('The UID field must be set')
         email = self.normalize_email(email)
-
-        # Get IP address from the request
-        ip_address = "0.0.0.0"
-        if request:
-            x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-            if x_forwarded_for:
-                ip_address = x_forwarded_for.split(',')[0]
-            else:
-                ip_address = request.META.get('REMOTE_ADDR')
-
-        # # Use GeoIP2 to get the country based on the IP address
-            # country = None
-            # if ip_address:
-            #     g = GeoIP2()
-            #     try:
-            #         country = g.country(ip_address)['country_code']
-            #     except:
-            #         pass
-        # Generate username based on email if username is empty
-        username = email.split('@')[0]
-
-
-        user = self.model(
-            email=email,
-            is_staff=is_staff,
-            is_active=True,
-            is_superuser=is_superuser,
-            last_login=now,
-            date_joined=now,
-            ip_address=ip_address,
-            # country=country,
-            username=username,
-            **extra_fields
-        )
+        user = self.model(UID=UID, email=email, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
-        # Resize the image
-        img = Image.open(user.image.path)
-        if img.height > 300 or img.width > 300:
-            output_size = (300, 300)
-            img.thumbnail(output_size)
-            img.save(user.image.path)
-
         return user
 
-    def create_user(self, email, password=None, **extra_fields):
-        extra_fields.setdefault('is_staff', False)
-        extra_fields.setdefault('is_superuser', False)
-        return self._create_user(email, password, **extra_fields)
-
-    def create_superuser(self, email, password=None, **extra_fields):
+    def create_superuser(self, UID, email, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
-
-        if extra_fields.get('is_staff') is not True:
-            raise ValueError('Superuser must have is_staff=True.')
-        if extra_fields.get('is_superuser') is not True:
-            raise ValueError('Superuser must have is_superuser=True.')
-
-        return self._create_user(email, password, **extra_fields)
-
+        
+        return self.create_user(UID, email, password, **extra_fields)
 
 class User(AbstractBaseUser, PermissionsMixin):
     desc_text='Hey, there is a default text description about you that you can change it by clicking "Edit" or going'   
@@ -93,6 +40,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         ('O', 'Other'),
     )
     # social_account = models.OneToOneField(SocialAccount, null=True, blank=True, on_delete=models.CASCADE, related_name='custom_user')
+    u_id = models.IntegerField(default="12345", unique=True,)
+    
     username = models.CharField(max_length=30, blank=True)
     first_name = models.CharField(max_length=30, blank=True)
     last_name = models.CharField(max_length=30, blank=True)
@@ -116,9 +65,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_login = models.DateTimeField(null=True, blank=True)
     date_joined = models.DateTimeField(auto_now_add=True)
     
-    USERNAME_FIELD = 'email'
-    EMAIL_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    USERNAME_FIELD = 'u_id'
+    # EMAIL_FIELD = 'u_id'
+    REQUIRED_FIELDS = ['email']
     # Specify a related name for the groups field
     groups = models.ManyToManyField(
         'auth.Group',
@@ -137,10 +86,10 @@ class User(AbstractBaseUser, PermissionsMixin):
         help_text='Specific permissions for this user.',
     )
 
-    objects = UserManager()
+    objects = CustomUserManager()
     
     def __str__(self):
-        return f'{self.email} User' #show how we want it to be displayed
+        return f'{self.UID} User' #show how we want it to be displayed
 
     # @property
     # def has_usable_password(self):

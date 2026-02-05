@@ -11,7 +11,8 @@ from .admin_views.create_users_groups_V import *
 
 urlpatterns = [
     # path('', home, name='home'),
-    # path('register/', register, name='signup'),
+    path('register/', signup_view, name='signup_'),
+    path('login/', login_view, name='login_'),
     # path('profile_home/', profile_home, name='profile-home'),
     path('your/profile/', profile, name='profile'),
     path('profile/Edit/', profile_edit, name='profile_edit'),

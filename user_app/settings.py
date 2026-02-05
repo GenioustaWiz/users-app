@@ -152,7 +152,7 @@ ROOT_URLCONF = "user_app.urls"
 AUTHENTICATION_BACKENDS = (
     # AxesStandaloneBackend should be the first backend in the AUTHENTICATION_BACKENDS list.
     # 'axes.backends.AxesStandaloneBackend',
-
+    'users.backends.CustomAuthBackend',
     'django.contrib.auth.backends.ModelBackend', # existing backend
     'allauth.account.auth_backends.AuthenticationBackend',
 )
